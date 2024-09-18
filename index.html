@@ -25,6 +25,9 @@
     <h1 id="percentage">0%</h1>
 
     <script>
+        // Store the last displayed percentage to avoid unnecessary updates
+        let lastPercentage = null;
+
         function updatePercentage() {
             // Set the start and end dates
             const startDate = new Date('2024-09-06T08:08:00');
@@ -35,15 +38,18 @@
             const totalTime = endDate - startDate;
             const elapsedTime = currentDate - startDate;
 
-            // Calculate the percentage of time passed
-            const percentage = Math.max(0, Math.min(100, (elapsedTime / totalTime) * 100));
+            // Calculate the percentage of time passed with seven decimal places
+            const percentage = Math.max(0, Math.min(100, (elapsedTime / totalTime) * 100)).toFixed(7);
 
-            // Display the percentage as a big number
-            document.getElementById('percentage').textContent = percentage.toFixed(6) + "%";
+            // Update the display only if the percentage changes
+            if (percentage !== lastPercentage) {
+                document.getElementById('percentage').textContent = percentage + "%";
+                lastPercentage = percentage;
+            }
         }
 
-        // Update the percentage every second
-        setInterval(updatePercentage, 1000);
+        // Continuously check and update the percentage every 50 milliseconds
+        setInterval(updatePercentage, 50);
 
         // Initial call to display the percentage when the page loads
         updatePercentage();
