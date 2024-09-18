@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Passed Percentage</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 8rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="percentage">0%</h1>
+
+    <script>
+        function updatePercentage() {
+            // Set the start and end dates
+            const startDate = new Date('2024-09-06T08:08:00');
+            const endDate = new Date('2025-06-26T14:45:00');
+            const currentDate = new Date();
+
+            // Calculate the total duration and elapsed time in milliseconds
+            const totalTime = endDate - startDate;
+            const elapsedTime = currentDate - startDate;
+
+            // Calculate the percentage of time passed
+            const percentage = Math.max(0, Math.min(100, (elapsedTime / totalTime) * 100));
+
+            // Display the percentage as a big number
+            document.getElementById('percentage').textContent = percentage.toFixed(6) + "%";
+        }
+
+        // Update the percentage every second
+        setInterval(updatePercentage, 1000);
+
+        // Initial call to display the percentage when the page loads
+        updatePercentage();
+    </script>
+</body>
+</html>
